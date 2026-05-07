@@ -1,0 +1,114 @@
+{
+  "SECTIONING": {
+    "START_MARKER": " - Section ",
+    "ID_PATTERN": "Section (\\d+)",
+    "KEY_PREFIX": "Section"
+  },
+  "LOCATIONS": {
+    "ALIAS_MAP": {
+      "LOC_A": "Regional Center Alpha",
+      "LOC_B": "Regional Center Beta",
+      "ZONE_1": "Primary Distribution Hub",
+      "ZONE_2": "Secondary Distribution Hub"
+    },
+    "FALLBACK_RULES": {
+      "PRIMARY_MARKER": "FACILITY",
+      "SUB_MARKERS": {
+        "N": "Northern Facility",
+        "S": "Southern Facility"
+      }
+    }
+  },
+  "PARSING": {
+    "HEADER_SEGMENT_SEPARATOR": " - ",
+    "DATE_YEAR_SEPARATOR": ", ",
+    "MONTH_DAY_SEPARATOR": " "
+  },
+  "EVENT_DESCRIPTION": {
+    "START_INDEX": 2,
+    "STOP_ANCHOR": "SPECIFICATIONS"
+  },
+  "EVENT_START_TIME": {
+    "SEARCH_TERM": "Logged at:",
+    "TIME_PATTERN": "(\\d{1,2}:\\d{2})"
+  },
+  "TIME_ENHANCEMENT": {
+    "STATUS_SKIP_MARKER": "Inactive",
+    "SOURCE_KEY": "Timestamp",
+    "OUTPUT_KEY": "normalized_hour",
+    "PM_THRESHOLD": 11
+  },
+  "EVENT_METRIC": {
+    "SEARCH_TERM": "Scale:",
+    "ANCHOR_TERM": "Baseline Metric:"
+  },
+  "PRIMARY_VALUE": {
+    "SEARCH_TERM": "Allocation:",
+    "CLEANUP_CHARS": ["$", ","]
+  },
+  "SECONDARY_VALUE": {
+    "SEARCH_TERM": "Reserve Fund:",
+    "CLEANUP_CHARS": ["$", ","]
+  },
+  "ENVIRONMENTAL_DATA": {
+    "MARKER_PRIMARY": "Atmosphere:",
+    "MARKER_SECONDARY": "Surface:",
+    "DELIMITER": ",",
+    "VALUE_PATTERN": "(\\d+)"
+  },
+  "PARTICIPANT_DATA": {
+    "ANCHOR_TERM": "Evaluation Notes",
+    "START_OFFSET": 3,
+    "LINE_STRIDE": 10,
+    "METRIC_OFFSET": 5,
+    "SUB_DATA_PATTERN": "\\((.*?)\\)",
+    "CLEANUP_PATTERN": "\\(.*?\\)",
+    "DEFAULT_ORIGIN": "Generic",
+    "METRIC_CLEANUP": ["*"],
+    "FIELDS": {
+      "NAME": "Entity name",
+      "RANK": "Priority",
+      "ORIGIN": "Source",
+      "LEAD": "Supervisor",
+      "METRIC": "Rating"
+    }
+  },
+  "EXCLUSION_DATA": {
+    "SEARCH_TERM": "Excluded Items:",
+    "SPLIT_PATTERN": ",(?![^\\(]*\\))",
+    "REASON_PATTERN": "\\((.*?)\\)",
+    "CLEANUP_PATTERN": "\\(.*?\\)",
+    "DEFAULT_REASON": "Not Specified",
+    "STATUS_LABEL": "removed",
+    "FIELDS": {
+      "NAME": "entity_label",
+      "STATUS": "current_state",
+      "CAUSE": "removal_reason"
+    }
+  },
+  "AGGREGATE_METRIC": {
+    "SEARCH_TERM": "Total Cumulative Value:",
+    "CLEANUP_CHARS": ["$", ","]
+  },
+  "BATCH_PROCESSING": {
+    "HEADER_DELIMITER": " - ",
+    "CANCEL_MARKER": "Inactive",
+    "OUTPUT_SUFFIX": " - log details.json",
+    "ROOT_DATA_KEY": "section_records",
+    "METADATA_KEYS": {
+      "ID": "sequence_number",
+      "LOCATION": "Region",
+      "TIME": "Timestamp",
+      "CLASSIFICATION": "Type",
+      "DESCRIPTION": "narrative_data",
+      "METRIC": "Scale",
+      "VALUE_1": "Primary_Budget",
+      "VALUE_2": "Secondary_Budget",
+      "WEATHER": "Environment",
+      "TEMP": "Value",
+      "CONDITION": "Condition_Status",
+      "ENTITIES": "units",
+      "AGGREGATE": "Grand_Total"
+    }
+  }
+}
